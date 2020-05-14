@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@appstyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fta.SUCoachController">
+   <children>
+      <PasswordField fx:id="password" layoutX="382.0" layoutY="119.0" promptText="Password" />
+      <TextField fx:id="username" layoutX="382.0" layoutY="78.0" promptText="Username" stylesheets="@appstyle.css" />
+      <TextField fx:id="fullname" layoutX="382.0" layoutY="159.0" promptText="First Name Last Name" stylesheets="@appstyle.css" />
+      <TextField fx:id="adresa" layoutX="382.0" layoutY="199.0" promptText="Address" stylesheets="@appstyle.css" />
+      <TextField fx:id="numartelefon" layoutX="382.0" layoutY="239.0" promptText="Phone Number" stylesheets="@appstyle.css" />
+      <TextField fx:id="varsta" layoutX="382.0" layoutY="279.0" promptText="Age" stylesheets="@appstyle.css" />
+      <Button fx:id="register" layoutX="430.0" layoutY="320.0" mnemonicParsing="false" onAction="#submitData" text="Register" />
+      <Button fx:id="back" layoutX="539.0" layoutY="362.0" mnemonicParsing="false" onAction="#switchToStartUpPage" text="Back" />
+   </children>
+</AnchorPane>
