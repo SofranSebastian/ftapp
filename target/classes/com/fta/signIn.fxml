@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@appstyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fta.SignInController">
+   <children>
+      <Button layoutX="435.0" layoutY="262.0" mnemonicParsing="false" onAction="#logIn" text="Sign In" />
+      <Button fx:id="back" layoutX="535.0" layoutY="347.0" mnemonicParsing="false" onAction="#switchToStartUpPage" text="Back" />
+      <PasswordField fx:id="password" layoutX="390.0" layoutY="208.0" promptText="Password" />
+      <TextField fx:id="username" layoutX="390.0" layoutY="167.0" promptText="Username" stylesheets="@appstyle.css" />
+   </children>
+</AnchorPane>

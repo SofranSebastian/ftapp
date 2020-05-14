@@ -32,7 +32,7 @@ public class SUCustomerController {
         JSONParser jp = new JSONParser();
 
         try{
-            FileReader file = new FileReader("usersCustomers.json");
+            FileReader file = new FileReader("users.json");
             jrr=(JSONArray) jp.parse(file);
         }catch(Exception e){
             e.printStackTrace();
@@ -52,7 +52,7 @@ public class SUCustomerController {
             System.out.println("Already registered");
         }else {
             try {
-                FileWriter file = new FileWriter("usersCustomers.json");
+                FileWriter file = new FileWriter("users.json");
                 file.write(jrr.toJSONString());
                 file.close();
             } catch (Exception e) {
@@ -63,11 +63,17 @@ public class SUCustomerController {
     }
 
     @FXML
-    private int checkAvailability(JSONObject jsonObject){
+    private int checkAvailability(JSONObject jsonObject) {
         int size = jrr.size();
 
+        JSONObject temp;
+
         for(int i = 0; i<size-1;i++) {
-            if (jsonObject.equals(jrr.get(i))) {
+
+            temp = (JSONObject) jrr.get(i);
+
+            if (temp.get("User").equals(jsonObject.get("User"))) {
+
                 Alert a = new Alert(Alert.AlertType.WARNING);
                 a.setContentText("Already registered. Press Back and Sign In");
                 a.show();
