@@ -14,4 +14,9 @@ public class StartUpPageController {
     private void switchToSignUpCustomer() throws IOException {
         App.setRoot("signUpCustomer");
     }
+
+    @FXML
+    private void switchToSignInUser() throws IOException {
+        App.setRoot("signIn");
+    }
 }
