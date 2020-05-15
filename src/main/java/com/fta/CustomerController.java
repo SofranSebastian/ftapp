@@ -8,8 +8,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.Scanner;
 
 public class CustomerController {
 
@@ -21,7 +21,7 @@ public class CustomerController {
 
     public JSONArray jarr = new JSONArray();
 
-
+    private String fileName;
 
     @FXML
     private void selectMuscleArea() throws IOException {
@@ -96,9 +96,9 @@ public class CustomerController {
         }
         temp = (JSONObject) jarr.get(0);
 
-        String nustiu;
-        nustiu = (String) temp.get("Weight");
-        System.out.println("" +nustiu);
+        String weight;
+        weight = (String) temp.get("Weight");
+        System.out.println("" +weight);
 
         //Getting the time period input from GUI
         int tp = Integer.parseInt(timePeriod.getText());
@@ -107,7 +107,7 @@ public class CustomerController {
         int dw = Integer.parseInt(desiredWeight.getText());
 
         //Getting the actual weight of the user
-        int aw = Integer.parseInt(nustiu);
+        int aw = Integer.parseInt(weight);
 
         int differenceWeight = aw - dw;
         int ans = (differenceWeight)/(tp);
@@ -119,6 +119,94 @@ public class CustomerController {
         a.show();
     }
 
+    @FXML
+    private TextField burnedCalories;
 
+    private File newFile;
 
+    @FXML
+    private void showTotalCalories() throws IOException {
+
+        JSONParser jp = new JSONParser();
+        JSONObject temp;
+        try{
+            FileReader file = new FileReader("userUnique.json");
+            jarr = (JSONArray) jp.parse(file);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        temp = (JSONObject) jarr.get(0);
+
+       fileName = "calories/calories_" + (String) temp.get("User")+".txt";
+
+       newFile = new File(fileName);
+
+        if(newFile.createNewFile()){
+            System.out.println("File created");
+        }else{
+            System.out.println("Already created");
+        }
+
+        int noCalories = 0;
+
+        try{
+            Scanner scannerText = new Scanner(newFile);
+
+            while(scannerText.hasNextLine()){
+                noCalories = scannerText.nextInt();
+            }
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle("Here is your journey champ!");
+        a.setHeaderText("Total amount of burned calories");
+        a.setContentText("Until now you burned " + noCalories + " calories");
+        a.show();
     }
+
+    @FXML
+    private void caloriesToBeAdded(){
+
+        int noCalories = 0;
+
+        try{
+            Scanner scannerText = new Scanner(newFile);
+
+            while(scannerText.hasNextLine()){
+                noCalories = scannerText.nextInt();
+            }
+            scannerText.close();
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+
+        int newNoCalories;
+        int inputCalories = Integer.parseInt(burnedCalories.getText());;
+
+        newNoCalories = noCalories + inputCalories;
+
+        String newNoCaloriesString = String.valueOf(newNoCalories);
+
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle("Never give up champ!");
+        a.setHeaderText("New amount of calories burned");
+        a.setContentText("Today you burned " + inputCalories + " calories");
+        a.show();
+
+        try{
+            FileWriter fw = new FileWriter(newFile);
+            fw.write(newNoCaloriesString);
+            fw.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void logOut() throws IOException{
+        App.setRoot("signIn");
+    }
+
+}
