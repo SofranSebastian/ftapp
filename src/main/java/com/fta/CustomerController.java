@@ -256,4 +256,62 @@ public class CustomerController {
         a.setContentText("The coach will see it and analyse it");
         a.show();
     }
+
+    @FXML
+    private void inbox(){
+        JSONParser jp = new JSONParser();
+        JSONArray jarr1 = new JSONArray();
+        JSONObject temp;
+
+        try{
+            FileReader file = new FileReader("userUnique.json");
+            jarr1 = (JSONArray) jp.parse(file);
+            file.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        temp = (JSONObject) jarr1.get(0);
+
+        String customerUsername = (String) temp.get("User");
+
+        try{
+            FileReader file = new FileReader("messagesCustomers.json");
+            jarr1 = (JSONArray) jp.parse(file);
+            file.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        String messageToDisplay = "";
+
+        String coachUsername, coachMessage, coachStatus;
+
+        for(int i = 0 ; i < jarr1.size() ; i++ ) {
+
+            temp = (JSONObject) jarr1.get(i);
+
+            if(temp.get("Customer").equals(customerUsername)) {
+                if(temp.get("Status").equals("Proposal")){
+                    coachUsername = (String) temp.get("Coach");
+                    coachMessage = (String) temp.get("Message");
+                    messageToDisplay = messageToDisplay + "From: " + coachUsername + "\nProposal: " + coachMessage + "\n";
+                } else {
+                    coachUsername = (String) temp.get("Coach");
+                    coachMessage = (String) temp.get("Message");
+                    coachStatus = (String) temp.get("Status");
+                    messageToDisplay = messageToDisplay + "From: " + coachUsername + "\nResponse: " + coachMessage + "\nTraining Request: " + coachStatus + "\n";
+                }
+            }
+
+
+        }
+
+
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle("Notifications");
+        a.setHeaderText("Training Requests Responses/Proposals");
+        a.setContentText(messageToDisplay);
+        a.show();
+    }
 }
