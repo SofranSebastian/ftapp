@@ -118,4 +118,57 @@ public class CoachController {
         a.show();
 
     }
+
+    @FXML
+    private TextField cMsg2, cuUsr2;
+
+    @FXML
+    private void sendProposal(){
+        JSONParser jp = new JSONParser();
+        JSONObject temp;
+        JSONArray jarr = null;
+        JSONArray jarr2 = null;
+        try{
+            FileReader file = new FileReader("coachUnique.json");
+            jarr = (JSONArray) jp.parse(file);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        temp = (JSONObject) jarr.get(0);
+
+        String coachUsername = (String) temp.get("User");
+
+        JSONObject jo = new JSONObject();
+        jp = new JSONParser();
+
+        try {
+            FileReader file = new FileReader("messagesCustomers.json");
+            jarr2 = (JSONArray) jp.parse(file);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        jo.put("Customer", cuUsr2.getText());
+        jo.put("Coach", coachUsername);
+        jo.put("Status","Proposal");
+        jo.put("Message", cMsg2.getText());
+
+        jarr2.add(jo);
+
+        try {
+            FileWriter file = new FileWriter("messagesCustomers.json");
+            file.write(jarr2.toJSONString());
+            file.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle("Proposal");
+        a.setHeaderText("Your proposal has been sent");
+        a.setContentText("The customer will see it and analyse it");
+        a.show();
+
+
+    }
 }
