@@ -33,46 +33,45 @@ public class CustomerController {
     }
 
     @FXML
-    public void showTraining()
-    {
-        if(choiceBox.getValue().equals("Chest")){
+    public void showTraining() {
+        if (choiceBox.getValue().equals("Chest")) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setTitle("Chest Workout");
             a.setHeaderText("Building a Bigger Chest");
-            a.setContentText(   "4x10 Dumbbell Squeeze Press\n" +
-                                "4x5 Decline press-up\n" +
-                                "4x15 Chest dips"   );
+            a.setContentText("4x10 Dumbbell Squeeze Press\n" +
+                    "4x5 Decline press-up\n" +
+                    "4x15 Chest dips");
             a.show();
-        }else if(choiceBox.getValue().equals("Back")){
+        } else if (choiceBox.getValue().equals("Back")) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setTitle("Back Workout");
             a.setHeaderText("Massive Back Workout");
-            a.setContentText("3x(6-8) Deadlifts\n"+
-                            "3x(12-15) Stiff Arm Pulldown\n"+
-                            "3x8 Dumbbell Rows");
+            a.setContentText("3x(6-8) Deadlifts\n" +
+                    "3x(12-15) Stiff Arm Pulldown\n" +
+                    "3x8 Dumbbell Rows");
             a.show();
-        }else if(choiceBox.getValue().equals("Arms")){
+        } else if (choiceBox.getValue().equals("Arms")) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setTitle("Arms Workout");
             a.setHeaderText("Reduce Flabby Arms");
-            a.setContentText("2x30 Reverse Curl\n"+
-                    "3x15 Seated Tricep Press\n"+
+            a.setContentText("2x30 Reverse Curl\n" +
+                    "3x15 Seated Tricep Press\n" +
                     "3x10 Tricep Dumbbell Kickback");
             a.show();
-        }else if(choiceBox.getValue().equals("Legs")){
+        } else if (choiceBox.getValue().equals("Legs")) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setTitle("Legs Workout");
             a.setHeaderText("Fat Burning Leg ");
-            a.setContentText("2x60 Banded Bridge\n"+
-                    "3x45 Burpees\n"+
+            a.setContentText("2x60 Banded Bridge\n" +
+                    "3x45 Burpees\n" +
                     "3x20 Tip-Toe Squat");
             a.show();
-        }else if(choiceBox.getValue().equals("Abs")){
+        } else if (choiceBox.getValue().equals("Abs")) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setTitle("Abs Workout");
             a.setHeaderText("Total Abs Defined");
-            a.setContentText("3x30 Reverse Crunches\n"+
-                    "4x20 Sitting Twists\n"+
+            a.setContentText("3x30 Reverse Crunches\n" +
+                    "4x20 Sitting Twists\n" +
                     "3x35 Butterfly Sit-Ups");
             a.show();
         }
@@ -82,21 +81,21 @@ public class CustomerController {
     private TextField desiredWeight, timePeriod;
 
     @FXML
-    private void calculateDesiredWeight(){
+    private void calculateDesiredWeight() {
 
         JSONParser jp = new JSONParser();
         JSONObject temp;
-        try{
+        try {
             FileReader file = new FileReader("userUnique.json");
             jarr = (JSONArray) jp.parse(file);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         temp = (JSONObject) jarr.get(0);
 
         String weight;
         weight = (String) temp.get("Weight");
-        System.out.println("" +weight);
+        System.out.println("" + weight);
 
         //Getting the time period input from GUI
         int tp = Integer.parseInt(timePeriod.getText());
@@ -108,7 +107,7 @@ public class CustomerController {
         int aw = Integer.parseInt(weight);
 
         int differenceWeight = aw - dw;
-        int ans = (differenceWeight)/(tp);
+        int ans = (differenceWeight) / (tp);
 
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setTitle("Desired Body Plan");
@@ -127,33 +126,33 @@ public class CustomerController {
 
         JSONParser jp = new JSONParser();
         JSONObject temp;
-        try{
+        try {
             FileReader file = new FileReader("userUnique.json");
             jarr = (JSONArray) jp.parse(file);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         temp = (JSONObject) jarr.get(0);
 
-       fileName = "calories/calories_" + temp.get("User")+".txt";
+        fileName = "calories/calories_" + temp.get("User") + ".txt";
 
-       newFile = new File(fileName);
+        newFile = new File(fileName);
 
-        if(newFile.createNewFile()){
+        if (newFile.createNewFile()) {
             System.out.println("File created");
-        }else{
+        } else {
             System.out.println("Already created");
         }
 
         int noCalories = 0;
 
-        try{
+        try {
             Scanner scannerText = new Scanner(newFile);
 
-            while(scannerText.hasNextLine()){
+            while (scannerText.hasNextLine()) {
                 noCalories = scannerText.nextInt();
             }
-        }catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -165,23 +164,24 @@ public class CustomerController {
     }
 
     @FXML
-    private void caloriesToBeAdded(){
+    private void caloriesToBeAdded() {
 
         int noCalories = 0;
 
-        try{
+        try {
             Scanner scannerText = new Scanner(newFile);
 
-            while(scannerText.hasNextLine()){
+            while (scannerText.hasNextLine()) {
                 noCalories = scannerText.nextInt();
             }
             scannerText.close();
-        }catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
         int newNoCalories;
-        int inputCalories = Integer.parseInt(burnedCalories.getText());;
+        int inputCalories = Integer.parseInt(burnedCalories.getText());
+        ;
 
         newNoCalories = noCalories + inputCalories;
 
@@ -193,17 +193,17 @@ public class CustomerController {
         a.setContentText("Today you burned " + inputCalories + " calories");
         a.show();
 
-        try{
+        try {
             FileWriter fw = new FileWriter(newFile);
             fw.write(newNoCaloriesString);
             fw.close();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    private void logOut() throws IOException{
+    private void logOut() throws IOException {
         App.setRoot("signIn");
     }
 
@@ -212,14 +212,13 @@ public class CustomerController {
     private JSONArray jrr = new JSONArray();
 
     @FXML
-    private void send()
-    {
+    private void send() {
         JSONParser jp = new JSONParser();
         JSONObject temp;
-        try{
+        try {
             FileReader file = new FileReader("userUnique.json");
             jarr = (JSONArray) jp.parse(file);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         temp = (JSONObject) jarr.get(0);
@@ -232,7 +231,7 @@ public class CustomerController {
         try {
             FileReader file = new FileReader("messagesCoaches.json");
             jrr = (JSONArray) jp.parse(file);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -258,16 +257,16 @@ public class CustomerController {
     }
 
     @FXML
-    private void inbox(){
+    private void inbox() {
         JSONParser jp = new JSONParser();
         JSONArray jarr1 = new JSONArray();
         JSONObject temp;
 
-        try{
+        try {
             FileReader file = new FileReader("userUnique.json");
             jarr1 = (JSONArray) jp.parse(file);
             file.close();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -275,11 +274,11 @@ public class CustomerController {
 
         String customerUsername = (String) temp.get("User");
 
-        try{
+        try {
             FileReader file = new FileReader("messagesCustomers.json");
             jarr1 = (JSONArray) jp.parse(file);
             file.close();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -287,12 +286,12 @@ public class CustomerController {
 
         String coachUsername, coachMessage, coachStatus;
 
-        for(int i = 0 ; i < jarr1.size() ; i++ ) {
+        for (int i = 0; i < jarr1.size(); i++) {
 
             temp = (JSONObject) jarr1.get(i);
 
-            if(temp.get("Customer").equals(customerUsername)) {
-                if(temp.get("Status").equals("Proposal")){
+            if (temp.get("Customer").equals(customerUsername)) {
+                if (temp.get("Status").equals("Proposal")) {
                     coachUsername = (String) temp.get("Coach");
                     coachMessage = (String) temp.get("Message");
                     messageToDisplay = messageToDisplay + "From: " + coachUsername + "\nProposal: " + coachMessage + "\n";
@@ -314,4 +313,57 @@ public class CustomerController {
         a.setContentText(messageToDisplay);
         a.show();
     }
+
+    @FXML
+    private TextField message1, coachUsername1;
+
+    @FXML
+    private void submitResponse() {
+        JSONParser jp = new JSONParser();
+        JSONObject temp;
+        JSONArray jarr1 = null;
+        JSONArray jarr2 = null;
+
+        try {
+            FileReader file = new FileReader("userUnique.json");
+            jarr1 = (JSONArray) jp.parse(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        temp = (JSONObject) jarr1.get(0);
+
+        String customerUsername = (String) temp.get("User");
+
+        JSONObject jo = new JSONObject();
+        jp = new JSONParser();
+
+        try {
+            FileReader file = new FileReader("messagesCoaches.json");
+            jarr2 = (JSONArray) jp.parse(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        jo.put("User", customerUsername);
+        jo.put("Coach", coachUsername1.getText());
+        jo.put("Message", message1.getText());
+
+        jarr2.add(jo);
+
+        try {
+            FileWriter file = new FileWriter("messagesCoaches.json");
+            file.write(jarr2.toJSONString());
+            file.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle("Reponse");
+        a.setHeaderText("Your message has been sent");
+        a.setContentText("The coach will see it ");
+        a.show();
+
+    }
 }
+
