@@ -1,29 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#selectMuscleArea" prefHeight="400.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@appstyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fta.CustomerController">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ChoiceBox fx:id="choiceBox" layoutX="374.0" layoutY="145.0" prefHeight="26.0" prefWidth="182.0" />
-      <Label layoutX="333.0" layoutY="27.0" prefHeight="34.0" prefWidth="252.0" text="Welcome champ!" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="30.0" />
-         </font>
-      </Label>
-      <Label layoutX="374.0" layoutY="113.0" prefHeight="26.0" prefWidth="169.0" text="Training Types" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <Button layoutX="492.0" layoutY="113.0" mnemonicParsing="false" onAction="#selectMuscleArea" text="Generate" />
-      <Button layoutX="310.0" layoutY="145.0" mnemonicParsing="false" onAction="#showTraining" text="Show" />
+      <Text layoutX="238.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer" wrappingWidth="151.7366943359375" />
    </children>
-   <effect>
-      <ColorAdjust />
-   </effect>
 </AnchorPane>
