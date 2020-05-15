@@ -209,4 +209,34 @@ public class CustomerController {
         App.setRoot("signIn");
     }
 
+    @FXML
+    private TextField coachUsername, message;
+    private JSONArray jrr = new JSONArray();
+
+    @FXML
+    private void send()
+    {
+        JSONObject jo = new JSONObject();
+        JSONParser jp = new JSONParser();
+
+        try {
+            FileReader file = new FileReader("messagesCoaches.json");
+            jrr = (JSONArray) jp.parse(file);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        jo.put("Coach", coachUsername.getText());
+        jo.put("Message", message.getText());
+
+        jrr.add(jo);
+
+        try {
+            FileWriter file = new FileWriter("messagesCoaches.json");
+            file.write(jrr.toJSONString());
+            file.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
