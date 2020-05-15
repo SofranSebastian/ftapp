@@ -17,8 +17,6 @@ public class CustomerController {
     private ChoiceBox<String> choiceBox;
     private int flag = 0;
 
-    private SignInController getData = new SignInController();
-
     public JSONArray jarr = new JSONArray();
 
     private String fileName;
@@ -137,7 +135,7 @@ public class CustomerController {
         }
         temp = (JSONObject) jarr.get(0);
 
-       fileName = "calories/calories_" + (String) temp.get("User")+".txt";
+       fileName = "calories/calories_" + temp.get("User")+".txt";
 
        newFile = new File(fileName);
 
@@ -216,8 +214,20 @@ public class CustomerController {
     @FXML
     private void send()
     {
-        JSONObject jo = new JSONObject();
         JSONParser jp = new JSONParser();
+        JSONObject temp;
+        try{
+            FileReader file = new FileReader("userUnique.json");
+            jarr = (JSONArray) jp.parse(file);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        temp = (JSONObject) jarr.get(0);
+
+        String userCustomer = (String) temp.get("User");
+
+        JSONObject jo = new JSONObject();
+        jp = new JSONParser();
 
         try {
             FileReader file = new FileReader("messagesCoaches.json");
@@ -226,6 +236,7 @@ public class CustomerController {
             e.printStackTrace();
         }
 
+        jo.put("User", userCustomer);
         jo.put("Coach", coachUsername.getText());
         jo.put("Message", message.getText());
 
@@ -238,5 +249,11 @@ public class CustomerController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle("Request");
+        a.setHeaderText("Your request has been sent");
+        a.setContentText("The coach will see it and analyse it");
+        a.show();
     }
 }
