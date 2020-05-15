@@ -65,6 +65,18 @@ public class SignInController {
                         if (temp.get("Pass").equals(password.getText())) {
                             if (temp.get("Type").equals("Coach")) {
                                 App.setRoot("coachWelcome");
+
+                                JSONArray temparr = new JSONArray();
+                                temparr.add(temp);
+
+                                try {
+                                    FileWriter file = new FileWriter("coachUnique.json");
+                                    file.write(temparr.toJSONString());
+                                    file.close();
+                                } catch(Exception e) {
+                                    e.printStackTrace();
+                                }
+
                             }
                             else if (temp.get("Type").equals("Customer")) {
                                 App.setRoot("customerWelcome");
