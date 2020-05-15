@@ -116,7 +116,6 @@ public class CoachController {
         a.setHeaderText("Your message has been sent");
         a.setContentText("The client will see it ");
         a.show();
-
     }
 
     @FXML
