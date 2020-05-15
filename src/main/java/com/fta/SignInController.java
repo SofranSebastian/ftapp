@@ -8,7 +8,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -24,11 +26,24 @@ public class SignInController {
         App.setRoot("primary");
     }
 
+    private String user;
+
+    public void setUser(){
+        this.user = username.getText();
+    }
+
+    public String getUser(){
+        return user;
+    }
+
+
     @FXML
     private void logIn() throws IOException {
 
         JSONObject temp;
         JSONParser jp = new JSONParser();
+
+
 
         try {
             FileReader file1 = new FileReader("users.json");
@@ -46,12 +61,25 @@ public class SignInController {
 
                     if (temp.get("User").equals(username.getText())) {
 
+
                         if (temp.get("Pass").equals(password.getText())) {
                             if (temp.get("Type").equals("Coach")) {
                                 App.setRoot("coachWelcome");
                             }
                             else if (temp.get("Type").equals("Customer")) {
                                 App.setRoot("customerWelcome");
+
+                                JSONArray temparr = new JSONArray();
+                                temparr.add(temp);
+
+                                try {
+                                    FileWriter file = new FileWriter("userUnique.json");
+                                    file.write(temparr.toJSONString());
+                                    file.close();
+                                } catch(Exception e) {
+                                    e.printStackTrace();
+                                }
+
                             }
                         } else {
                             Alert a = new Alert(Alert.AlertType.WARNING);
